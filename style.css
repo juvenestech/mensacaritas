@@ -1,0 +1,338 @@
+:root {
+  --font-body: "General Sans", "Inter", "Segoe UI", system-ui, -apple-system,
+    sans-serif;
+  --bg-gradient: linear-gradient(160deg, #050608 0%, #0d1117 55%, #1c1f27 100%);
+  --spotlight-1: radial-gradient(
+      circle at 18% 20%,
+      rgba(88, 198, 255, 0.25),
+      transparent 55%
+    );
+  --spotlight-2: radial-gradient(
+      circle at 82% -10%,
+      rgba(180, 220, 255, 0.16),
+      transparent 45%
+    );
+  --glass-bg: rgba(40, 44, 52, 0.55);
+  --glass-border: rgba(255, 255, 255, 0.22);
+  --glass-highlight: rgba(255, 255, 255, 0.24);
+  --text-strong: #f4f6fa;
+  --text-muted: rgba(209, 213, 219, 0.72);
+  --accent: #f3f4f6;
+  --accent-strong: #cbd5f5;
+  --danger: rgba(248, 113, 113, 0.8);
+  --success: rgba(74, 222, 128, 0.78);
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-body);
+  background: var(--bg-gradient);
+  color: var(--text-strong);
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  padding: min(3vw, 2.4rem) clamp(0.5rem, 2vw, 1.2rem);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: var(--spotlight-1), var(--spotlight-2);
+  backdrop-filter: blur(32px);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.page {
+  width: min(1050px, 100%);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.1rem, 1.8vw, 2rem);
+}
+
+header {
+  position: relative;
+  padding: clamp(1.2rem, 2.1vw, 1.85rem);
+  border-radius: 22px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(26px);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+}
+
+header::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.28) 0%,
+    transparent 58%
+  );
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+header h1 {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  font-size: clamp(2.15rem, 5vw, 3.25rem);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+header p {
+  position: relative;
+  z-index: 1;
+  margin-top: 0.75rem;
+  font-size: clamp(0.9rem, 2vw, 1.02rem);
+  color: var(--text-muted);
+}
+
+#feedback-banner {
+  position: relative;
+  z-index: 1;
+  margin: 1rem auto 0;
+  padding: 0.75rem 1.25rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(24, 32, 40, 0.6);
+  backdrop-filter: blur(18px);
+  font-weight: 600;
+  display: none;
+  width: fit-content;
+  max-width: min(640px, 100%);
+  text-align: center;
+}
+
+#feedback-banner.error {
+  display: inline-flex;
+  color: #fee2e2;
+  border-color: rgba(248, 113, 113, 0.6);
+  box-shadow: 0 18px 36px rgba(248, 113, 113, 0.22);
+}
+
+#feedback-banner.success {
+  display: inline-flex;
+  color: #e2fbea;
+  border-color: rgba(74, 222, 128, 0.5);
+  box-shadow: 0 18px 36px rgba(74, 222, 128, 0.18);
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.35rem, 2.4vw, 2.25rem);
+}
+
+.month-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin-bottom: clamp(1.6rem, 3.2vw, 2.75rem);
+}
+
+.month-name {
+  align-self: flex-start;
+  padding: 0.55rem 1.2rem;
+  border-radius: 999px;
+  background: rgba(46, 53, 62, 0.68);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  backdrop-filter: blur(22px);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+.table-wrapper {
+  border-radius: 20px;
+  background: rgba(28, 32, 40, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(24px);
+  overflow-x: auto;
+  padding: 0.95rem;
+  box-shadow: 0 26px 60px rgba(0, 0, 0, 0.45);
+}
+
+table {
+  width: 100%;
+  min-width: 500px;
+  border-collapse: collapse;
+  color: var(--text-strong);
+  background: transparent;
+}
+
+thead th {
+  position: relative;
+  padding: 0.85rem 0.65rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.72rem;
+  color: rgba(226, 232, 240, 0.82);
+}
+
+thead th::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.18),
+    rgba(255, 255, 255, 0.03)
+  );
+  opacity: 0.35;
+  pointer-events: none;
+  border-radius: 12px 12px 0 0;
+}
+
+thead .date-row th {
+  font-size: 0.84rem;
+  letter-spacing: 0.05em;
+}
+
+tbody td {
+  position: relative;
+  padding: 0.75rem 0.65rem;
+  text-align: center;
+  font-size: 0.94rem;
+  font-weight: 500;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+tbody tr:last-child td {
+  padding-bottom: 1.1rem;
+}
+
+tbody td.filled {
+  color: var(--text-strong);
+  text-shadow: 0 0 22px rgba(255, 255, 255, 0.2);
+}
+
+tbody td.empty {
+  color: rgba(203, 213, 225, 0.3);
+}
+
+tbody a {
+  color: inherit;
+  text-decoration: none;
+  position: relative;
+}
+
+tbody a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background: rgba(243, 244, 246, 0.45);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 160ms ease;
+}
+
+tbody a:hover::after {
+  transform: scaleX(1);
+}
+
+.add-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.15rem;
+  height: 2.15rem;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  background: linear-gradient(145deg, rgba(248, 249, 251, 0.95), rgba(180, 188, 198, 0.95));
+  color: #0c0f14;
+  font-size: 1.32rem;
+  cursor: pointer;
+  transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
+  box-shadow: 0 18px 36px rgba(213, 215, 220, 0.3);
+}
+
+.add-btn:hover {
+  transform: translateY(-1px) scale(1.03);
+  box-shadow: 0 24px 40px rgba(156, 163, 175, 0.28);
+  border-color: rgba(255, 255, 255, 0.34);
+}
+
+.add-btn:active {
+  transform: scale(0.96);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 1.3rem 0.75rem;
+  }
+
+  .page {
+    gap: 0.9rem;
+  }
+
+  header {
+    border-radius: 18px;
+    padding: 1.25rem 1.1rem;
+  }
+
+  header h1 {
+    letter-spacing: 0.1em;
+    font-size: clamp(1.8rem, 7vw, 2.35rem);
+  }
+
+  header p {
+    margin-top: 0.55rem;
+  }
+
+  #feedback-banner {
+    margin-top: 0.75rem;
+    padding: 0.6rem 1rem;
+  }
+
+  .table-wrapper {
+    border-radius: 18px;
+    padding: 0.75rem;
+  }
+
+  thead th {
+    font-size: 0.62rem;
+  }
+
+  thead .date-row th {
+    font-size: 0.74rem;
+  }
+
+  tbody td {
+    font-size: 0.86rem;
+    padding: 0.65rem 0.5rem;
+  }
+
+  .add-btn {
+    width: 1.9rem;
+    height: 1.9rem;
+    font-size: 1.18rem;
+  }
+}
